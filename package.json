@@ -1,0 +1,19 @@
+{
+  "name": "exam-app",
+  "version": "1.0.0",
+  "description": "Basit yazili degerlendirme uygulamasi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "openai": "^6.4.0",
+    "pdfkit": "^0.17.2"
+  }
+}
+
+

@@ -1,0 +1,152 @@
+{
+  "subject": "Kimya",
+  "criteria": [
+    {
+      "criterion_id": "K1",
+      "name": "Kimyasal madde seçimi ve kimyasalların niteliklerini gözlemleyeceği ortam oluşturma",
+      "desc": "Seçim ve gözlem ortamı kurma yeterliği",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Evde kullanılan bir kimyasal madde seçmiştir; ancak kimyasalın niteliklerini gözlemleyeceği bir ortam oluşturmamıştır."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Evde kullanılan bir kimyasal madde seçmiş ve kimyasalın niteliklerini gözlemleyeceği bir ortam oluşturmuştur."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Evde kullanılan iki kimyasal madde seçmiş ve kimyasalların niteliklerini gözlemleyeceği farklı ortamlar oluşturmuştur."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Evde kullanılan ikiden fazla kimyasal madde seçmiş ve kimyasalların niteliklerini gözlemleyeceği farklı ortamlar oluşturmuştur."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K2",
+      "name": "Kimyasal maddelerin niteliklerini tanımlama ve farklılıklarını ortaya çıkarma",
+      "desc": "Nitelikleri doğru tanımlama ve farkları belirleme",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Evde kullanılan kimyasallara ilişkin nitelikleri tanımlanmamış ve niteliklerin farkını belirlememiştir."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Evde kullanılan kimyasalların niteliklerini kısmen tanımlamış ve niteliklerin farkını kısmen belirlemiştir."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Evde kullanılan kimyasalların niteliklerini tanımlamış ve niteliklerin farkını belirlemiştir."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Evde kullanılan kimyasallara ilişkin nitelikleri tanımlamış ve niteliklerin farkını doğru belirlemiştir."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K3",
+      "name": "Kimyasal maddelerin niteliklerindeki farklılıkları kimya bilimiyle ilişkilendirmek üzere veri toplama ve kaydetme",
+      "desc": "Veri toplama ve doğru kayıt",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Kimyasal maddelerin niteliklerindeki farklılıkları kimya bilimiyle ilişkilendirmek üzere veri toplayamamıştır."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Veri toplamış ancak kaydederken hata yapmıştır."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "İlişkilendirmek üzere tek gözlem verisi kaydetmiştir."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "İlişkilendirmek üzere birden fazla veriyi doğru kaydetmiştir."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K4",
+      "name": "Kimyasal maddelerin niteliklerinin toplum ve çevre sağlığına etkilerini belirleme ve haber yazısı oluşturma",
+      "desc": "Toplum/çevre etkisi ve haber yazısı",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Etkileri belirleyememiştir."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Etkilerin çoğunu yanlış belirleyerek haber yazısı oluşturmuştur."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Etkileri kısmen belirleyerek haber yazısı oluşturmuştur."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Etkilerin hepsini doğru belirleyerek haber yazısı oluşturmuştur."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K5",
+      "name": "Kaynakça Belirtme",
+      "desc": "Kaynak gösterme doğruluğu ve tamlığı",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Kaynakça belirtilmemiştir."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Belirtilen kaynakça hatalar içermektedir."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Belirtilen kaynakçada eksiklikler vardır."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Yer alan tüm bilgilerin kaynakçası tam ve doğru olarak verilmiştir."
+        }
+      ]
+    }
+  ]
+}
+
+

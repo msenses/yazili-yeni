@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yazılı Değerlendirme – Yükleme</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #e9eef8;
+      --muted: #9fb0cc;
+      --accent: #2f7bff;
+      --accent-2: #6bc1ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% -10%, rgba(47, 123, 255, 0.25), transparent 50%),
+        radial-gradient(1000px 700px at 110% 0%, rgba(107, 193, 255, 0.18), transparent 50%),
+        var(--bg);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .container { width: 100%; max-width: 760px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    .header {
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(47, 123, 255, 0.25), rgba(107, 193, 255, 0.15));
+      border-bottom: 1px solid var(--card-border);
+    }
+    .header h1 { margin: 0 0 6px; font-size: 20px; font-weight: 700; }
+    .header p { margin: 0; color: var(--muted); font-size: 14px; }
+    .content { padding: 24px; }
+    label { display: block; margin: 14px 0 8px; font-weight: 600; }
+    input[type="text"], input[type="file"] { width: 100%; }
+    input[type="text"] {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+      outline: none;
+    }
+    input[type="text"]:focus { border-color: rgba(47, 123, 255, 0.65); box-shadow: 0 0 0 3px rgba(47, 123, 255, 0.18); }
+    .file-input {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed var(--card-border);
+      border-radius: 10px;
+      padding: 14px;
+      color: var(--muted);
+    }
+    .hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .actions { margin-top: 18px; display: flex; gap: 12px; }
+    button {
+      appearance: none;
+      border: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      box-shadow: 0 10px 30px rgba(47, 123, 255, 0.35);
+    }
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .secondary { background: transparent; color: var(--text); border: 1px solid var(--card-border); box-shadow: none; }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('uploadForm');
+      const fileInput = document.getElementById('file');
+      const submitBtn = document.getElementById('submitBtn');
+      const fileNameEl = document.getElementById('fileName');
+
+      function updateState() {
+        const hasFile = fileInput.files && fileInput.files.length > 0;
+        submitBtn.disabled = !hasFile;
+        fileNameEl.textContent = hasFile ? fileInput.files[0].name : 'Bir görsel seçin veya sürükleyip bırakın';
+      }
+
+      fileInput.addEventListener('change', updateState);
+      updateState();
+    });
+  </script>
+  </head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <h1>Yazılı Değerlendirme – Dosya Yükleme</h1>
+        <p>Fotoğrafı yükleyin. Sonraki adımda kriterlere göre değerlendirme yapılacak ve PDF üretilecektir.</p>
+      </div>
+      <div class="content">
+        <form id="uploadForm" action="/api/evaluate" method="post" enctype="multipart/form-data">
+          <label for="examCode">Sınav Kodu (opsiyonel)</label>
+          <input id="examCode" name="examCode" type="text" placeholder="MAT-1.YAZILI">
+
+          <label for="file">Yazılı Fotoğrafı</label>
+          <div class="file-input">
+            <span id="fileName">Bir görsel seçin veya sürükleyip bırakın</span>
+            <input id="file" name="file" type="file" accept="image/*" required>
+          </div>
+          <div class="hint">Desteklenen formatlar: JPG, PNG (maks. ~10MB önerilir)</div>
+
+          <label for="criteriaJson">Kriterler (JSON)</label>
+          <textarea id="criteriaJson" name="criteriaJson" style="width:100%; height:220px; background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: var(--text); padding: 10px 12px; border-radius: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
+[
+{
+  "subject": "Kimya",
+  "criteria": [
+    {
+      "criterion_id": "K1",
+      "name": "Kimyasal madde seçimi ve kimyasalların niteliklerini gözlemleyeceği ortam oluşturma",
+      "desc": "Seçim ve gözlem ortamı kurma yeterliği",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Evde kullanılan bir kimyasal madde seçmiştir; ancak kimyasalın niteliklerini gözlemleyeceği bir ortam oluşturmamıştır."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Evde kullanılan bir kimyasal madde seçmiş ve kimyasalın niteliklerini gözlemleyeceği bir ortam oluşturmuştur."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Evde kullanılan iki kimyasal madde seçmiş ve kimyasalların niteliklerini gözlemleyeceği farklı ortamlar oluşturmuştur."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Evde kullanılan ikiden fazla kimyasal madde seçmiş ve kimyasalların niteliklerini gözlemleyeceği farklı ortamlar oluşturmuştur."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K2",
+      "name": "Kimyasal maddelerin niteliklerini tanımlama ve farklılıklarını ortaya çıkarma",
+      "desc": "Nitelikleri doğru tanımlama ve farkları belirleme",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Evde kullanılan kimyasallara ilişkin nitelikleri tanımlanmamış ve niteliklerin farkını belirlememiştir."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Evde kullanılan kimyasalların niteliklerini kısmen tanımlamış ve niteliklerin farkını kısmen belirlemiştir."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Evde kullanılan kimyasalların niteliklerini tanımlamış ve niteliklerin farkını belirlemiştir."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Evde kullanılan kimyasallara ilişkin nitelikleri tanımlamış ve niteliklerin farkını doğru belirlemiştir."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K3",
+      "name": "Kimyasal maddelerin niteliklerindeki farklılıkları kimya bilimiyle ilişkilendirmek üzere veri toplama ve kaydetme",
+      "desc": "Veri toplama ve doğru kayıt",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Kimyasal maddelerin niteliklerindeki farklılıkları kimya bilimiyle ilişkilendirmek üzere veri toplayamamıştır."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Veri toplamış ancak kaydederken hata yapmıştır."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "İlişkilendirmek üzere tek gözlem verisi kaydetmiştir."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "İlişkilendirmek üzere birden fazla veriyi doğru kaydetmiştir."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K4",
+      "name": "Kimyasal maddelerin niteliklerinin toplum ve çevre sağlığına etkilerini belirleme ve haber yazısı oluşturma",
+      "desc": "Toplum/çevre etkisi ve haber yazısı",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Etkileri belirleyememiştir."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Etkilerin çoğunu yanlış belirleyerek haber yazısı oluşturmuştur."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Etkileri kısmen belirleyerek haber yazısı oluşturmuştur."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Etkilerin hepsini doğru belirleyerek haber yazısı oluşturmuştur."
+        }
+      ]
+    },
+    {
+      "criterion_id": "K5",
+      "name": "Kaynakça Belirtme",
+      "desc": "Kaynak gösterme doğruluğu ve tamlığı",
+      "max_points": 20,
+      "weight": 1.0,
+      "levels": [
+        {
+          "level": "Başlangıç Düzeyinde",
+          "range": "1-5",
+          "desc": "Kaynakça belirtilmemiştir."
+        },
+        {
+          "level": "Kabul Edilebilir",
+          "range": "6-10",
+          "desc": "Belirtilen kaynakça hatalar içermektedir."
+        },
+        {
+          "level": "İyi",
+          "range": "11-15",
+          "desc": "Belirtilen kaynakçada eksiklikler vardır."
+        },
+        {
+          "level": "Çok İyi",
+          "range": "16-20",
+          "desc": "Yer alan tüm bilgilerin kaynakçası tam ve doğru olarak verilmiştir."
+        }
+      ]
+    }
+  ]
+}
+
+
+
+]
+          </textarea>
+          <div class="hint">JSON formatı zorunlu. Ağırlık ve max puanlar 100 ölçeğine dönüştürülecektir.</div>
+
+          <div class="actions">
+            <button id="submitBtn" type="submit" disabled>DOCX İndir</button>
+            <button class="secondary" type="reset">Temizle</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
