@@ -1,7 +1,6 @@
 const express = require('express');
 const multer = require('multer');
 const PDFDocument = require('pdfkit');
-const { Document, Packer, Paragraph, TextRun, HeadingLevel } = require('docx');
 const fs = require('fs');
 const https = require('https');
 const OpenAI = require('openai');
@@ -133,6 +132,7 @@ app.post(['/evaluate','/api/evaluate'], upload.single('file'), async (req, res) 
     try { result = JSON.parse(raw); } catch (e) { result = {}; }
 
     // Build DOCX instead of PDF
+    const { Document, Packer, Paragraph, TextRun, HeadingLevel } = await import('docx');
     const st = result.student || {};
     const items = Array.isArray(result.items) ? result.items : [];
     const finalScore = Math.round(result.final_score_100 ?? 0);
