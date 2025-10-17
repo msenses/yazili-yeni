@@ -1,8 +1,6 @@
-const express = require('express');
-const multer = require('multer');
-const handler = require('../server');
+const app = require('../server');
 
-// Vercel will call default export as a serverless function
-module.exports = handler;
+// Vercel serverless handler – delegate to Express app
+module.exports = (req, res) => app(req, res);
 
 
