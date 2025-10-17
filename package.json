@@ -8,13 +8,11 @@
   },
   "license": "ISC",
   "dependencies": {
+    "docx": "^9.5.1",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "multer": "^2.0.2",
     "openai": "^6.4.0",
-    "pdfkit": "^0.17.2",
-    "docx": "^9.1.0"
+    "pdfkit": "^0.17.2"
   }
 }
-
-
